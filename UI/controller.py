@@ -8,8 +8,13 @@ class Controller:
         self._model = model
 
     def handle_crea_grafo(self, e):
-        """ Handler per gestire creazione del grafo """""
-        # TODO
+        durata_min = self._view.txt_durata.value
+        durata_min = float(durata_min)
+        self._model.build_graph(durata_min)
+        self._view.lista_visualizzazione_1.controls.clear()
+        self._view.lista_visualizzazione_1.controls.append(ft.Text(
+            f"Grafo creato: {self._model.get_num_of_nodes()} Album, {self._model.get_num_of_edges()} Archi"))
+        self._view.update()
 
     def get_selected_album(self, e):
         """ Handler per gestire la selezione dell'album dal dropdown """""
