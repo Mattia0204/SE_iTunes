@@ -3,7 +3,7 @@ from database.dao import DAO
 
 class Model:
     def __init__(self):
-        self.G = nx.DiGraph()
+        self.G = nx.Graph()
         self._nodes = []
         self._edges = []
 
@@ -30,3 +30,18 @@ class Model:
 
     def get_num_of_edges(self):
         return self.G.number_of_edges()
+
+    def get_album(self):
+        lista_album = []
+        diz_album = DAO.get_album_attributes()
+        for k, v in diz_album.items():
+            if k in self._nodes:
+                lista_album.append(v)
+
+        return lista_album
+
+    def get_component(self, album):
+        """Restituisce la componente connessa di un album"""
+        if album not in self.G:
+            return []
+        return list(nx.node_connected_component(self.G, album))

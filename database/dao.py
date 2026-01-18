@@ -52,3 +52,21 @@ class DAO:
         conn.close()
         return connessioni
 
+    @staticmethod
+    def get_album_attributes():
+        conn = DBConnect.get_connection()
+        album = {}
+
+        cursor = conn.cursor(dictionary=True)
+        query = """
+                SELECT id, title
+                FROM album 
+                """
+        cursor.execute(query)
+
+        for row in cursor:
+            album[row['id']] = row['title']
+
+        cursor.close()
+        conn.close()
+        return album
